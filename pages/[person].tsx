@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import * as Button from '../components/Button';
 import Layout from '../components/Layout';
 import styles from '../styles/PersonalPage.module.scss';
-import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, Note, toFirstNames, validateNames } from '../utils';
+import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, getQuoteFromName, Note, toFirstNames, validateNames } from '../utils';
 
 interface PersonalPageProps {
   deds: Note[];
   name: string;
+  quote: string;
 }
 
 const parse = (s: string): JSX.Element[] => {
@@ -17,9 +18,7 @@ const parse = (s: string): JSX.Element[] => {
     [...acc, (<>{t}<br/></>)], []);
 };
 
-const FILLER = '[insert cute description here]';
-
-export default function PersonalPage({deds, name}: PersonalPageProps): JSX.Element {
+export default function PersonalPage({deds, name, quote}: PersonalPageProps): JSX.Element {
 
   const NoteCarousel = (): JSX.Element => {
     const [idx, setIdx] = useState(0);
@@ -67,7 +66,7 @@ export default function PersonalPage({deds, name}: PersonalPageProps): JSX.Eleme
         </Link>
       </nav>
       <h1 id={styles.name}>{name}</h1>
-      <p id={styles.description}>{FILLER}</p>
+      <p id={styles.description}>{quote}</p>
       <NoteCarousel />
     </Layout>
   );
@@ -91,12 +90,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const {person} = params;
   const id = await getIdFromName(person as string);
   const deds = await getDedsFromId(id);
-  const filteredDeds = deds.filter(({note, from}) => note && from);
+  const quote = await getQuoteFromName(person as string);
+  const filteredDeds = deds.filter(({ note, from }) => note && from);
 
   return {
     props: {
       deds: filteredDeds,
       name: person,
+      quote,
     },
   };
 };
