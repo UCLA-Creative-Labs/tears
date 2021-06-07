@@ -1,6 +1,7 @@
 import { Client } from '@notionhq/client';
 import { RichTextPropertyValue, TitlePropertyValue } from '@notionhq/client/build/src/api-types';
 import { Note } from '.';
+import { QUOTES_DB, FILLER_QUOTE } from './constants';
 
 const PAGE_ID = '1ee6ddaed3634f25aa650926f70ae16c';
 
@@ -42,4 +43,11 @@ export const getIdFromName = async (name: string): Promise<string> => {
   const names = await Promise.all(dbs.map(id => getNameFromId(id)));
   const idx = names.findIndex(v => v.toLowerCase().split(' ')[0] === name);
   return dbs[idx];
+};
+
+export const getQuoteFromName = async (name: string): Promise<string> => {
+  const quotes = await getDedsFromId(await getIdFromName(QUOTES_DB));
+  const idx = quotes.findIndex(ded => ded.from.toLowerCase().split(' ')[0] === name);
+
+  return (idx != -1) && quotes[idx].note || FILLER_QUOTE;
 };
