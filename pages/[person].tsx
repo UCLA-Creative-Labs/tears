@@ -1,5 +1,5 @@
-import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import React from 'react';
 import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, Note } from '../utils';
 
 interface PersonalPageProps {
@@ -7,16 +7,16 @@ interface PersonalPageProps {
 }
 
 export default function PersonalPage({deds}: PersonalPageProps): JSX.Element {
-  
+
   return (
     <div>
-      {deds.map(({note, from}) => 
-      <>
-        <h3>===</h3>
-        <h1>{from}</h1>
-        <p>{note}</p>
-        <h3>===</h3>
-      </>
+      {deds.map(({note, from}) =>
+        <>
+          <h3>===</h3>
+          <h1>{from}</h1>
+          <p>{note}</p>
+          <h3>===</h3>
+        </>,
       )}
     </div>
   );
@@ -29,14 +29,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return {
       params: {
         person: name.toLowerCase().split(' ')[0],
-      }
-    }
+      },
+    };
   });
   return {
     paths,
     fallback: true,
-  }
-}
+  };
+};
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const {person} = params;
@@ -45,5 +45,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {deds},
-  }
-}
+  };
+};
