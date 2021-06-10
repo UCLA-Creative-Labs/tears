@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+$heading-font: normal 400 2.6rem 'Nanum Pen Script', cursive;
+$body-font: normal 400 1.3rem 'Nanum Pen Script', cursive;
+
+$colors: (
+  'beige': #EFEDE9,
+  'black': #000000,
+);
+
+// Export colors to JS
+:export {
+  @each $key, $value in $colors {
+    #{unquote($key)}: $value;
+  }
+}

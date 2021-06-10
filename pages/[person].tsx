@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
-import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, Note } from '../utils';
+import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, Note, toFirstNames, validateNames } from '../utils';
 
 interface PersonalPageProps {
   deds: Note[];
@@ -25,13 +25,11 @@ export default function PersonalPage({deds}: PersonalPageProps): JSX.Element {
 export const getStaticPaths: GetStaticPaths = async () => {
   const dbs = await getDatabases();
   const names = await Promise.all(dbs.map(id => getNameFromId(id)));
-  const paths = names.map(name => {
-    return {
-      params: {
-        person: name.toLowerCase().split(' ')[0],
-      },
-    };
+  const firstNames = toFirstNames(names);
+  const paths = validateNames(firstNames).map(name => {
+    return { params: { person: name } };
   });
+
   return {
     paths,
     fallback: true,

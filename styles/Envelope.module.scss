@@ -1,0 +1,18 @@
+@use 'mixins.module' as mixin;
+
+.envelope {
+  width: 200px;
+  height: 140px;
+  position: relative;
+
+  background-image: url('../public/envelope.svg');
+  @include mixin.background;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.name {
+  transform: translateY(150%);
+}
