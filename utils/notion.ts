@@ -1,4 +1,5 @@
 import { Client } from '@notionhq/client';
+import { RichTextPropertyValue, TitlePropertyValue } from '@notionhq/client/build/src/api-types';
 import { Note } from '.';
 
 const PAGE_ID = '1ee6ddaed3634f25aa650926f70ae16c';
@@ -30,8 +31,8 @@ export const getDedsFromId = async (id: string): Promise<Note[]> => {
   const db = await notion.databases.query({database_id: id});
   return db.results.map(r => {
     return {
-      note: r?.properties?.Note?.rich_text[0]?.plain_text as string,
-      from: r?.properties?.From?.title[0]?.plain_text as string,
+      note: (r.properties.Note as RichTextPropertyValue)?.rich_text[0]?.plain_text ?? '' as string,
+      from: (r.properties.From as TitlePropertyValue)?.title[0]?.plain_text ?? '' as string,
     };
   });
 };

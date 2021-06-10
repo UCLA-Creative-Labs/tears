@@ -1,24 +1,75 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import React from 'react';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import Layout from '../components/Layout';
 import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, Note, toFirstNames, validateNames } from '../utils';
+import styles from '../styles/PersonalPage.module.scss';
+import * as Button from '../components/Button';
 
 interface PersonalPageProps {
   deds: Note[];
+  name: string;
 }
 
-export default function PersonalPage({deds}: PersonalPageProps): JSX.Element {
+const parse = (s: string): JSX.Element[] => {
+  const text = s.split('\n');
+  return text.reduce((acc, t): JSX.Element[] =>
+   [...acc, (<>{t}</>), (<br/>)], []);
+}
+
+const FILLER = `[insert cute description here]`;
+
+export default function PersonalPage({deds, name}: PersonalPageProps): JSX.Element {
+
+  const NoteCarousel = (): JSX.Element => {
+    const [idx, setIdx] = useState(0);
+
+    useEffect(() => {
+      const storage = window.sessionStorage;
+      const _idx = storage.getItem('idx');
+      if (_idx) setIdx(+_idx);
+    }, []);
+
+    useEffect(() => {
+      const storage = window.sessionStorage;
+      storage.setItem('idx', `${idx}`);
+    }, [idx]);
+
+    const prev = () => {
+      setIdx(i => i - 1 >= 0 ? i - 1 : deds.length - 1);
+    }
+
+    const next = () => {
+      setIdx(i => i + 1 < deds.length ? i + 1 : 0);
+    }
+    
+    return (
+      <>
+        <p id={styles.note}>
+          {parse(deds ? deds[idx].note : 'i love you')}
+        </p>
+        <p id={styles.from}>
+          -{deds ? deds[idx].from : 'bippen'}
+        </p>
+        <footer>
+          <Button.LEFT text={'previous letter'} onClick={() => prev()}/>
+          <Button.RIGHT text={'next letter'} onClick={() => next()}/>
+        </footer>
+      </>
+    );
+  }
 
   return (
-    <div>
-      {deds.map(({note, from}) =>
-        <>
-          <h3>===</h3>
-          <h1>{from}</h1>
-          <p>{note}</p>
-          <h3>===</h3>
-        </>,
-      )}
-    </div>
+    <Layout id={styles.container}>
+      <nav>
+        <Link href={'/'}>
+          <Button.LEFT text={'back to home'}/>
+        </Link>
+      </nav>
+      <h1 id={styles.name}>{name}</h1>
+      <p id={styles.description}>{FILLER}</p>
+      <NoteCarousel />
+    </Layout>
   );
 }
 
@@ -40,8 +91,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const {person} = params;
   const id = await getIdFromName(person as string);
   const deds = await getDedsFromId(id);
+  const filteredDeds = deds.filter(({note, from}) => note && from);
 
   return {
-    props: {deds},
+    props: {
+      deds: filteredDeds,
+      name: person,
+    },
   };
 };

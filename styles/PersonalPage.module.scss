@@ -1,0 +1,36 @@
+#container {
+  position: relative;
+  max-width: 646px;
+  margin: auto;
+  padding: 0 32px;
+
+  nav {
+    position: absolute;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 48px 0px;
+  }
+}
+
+#name {
+  margin-top: 64px;
+}
+
+#note, #from {
+  text-align: left;
+}
+
+#note {
+  margin-top: 24px;
+  font-size: 2rem;
+}
+
+#from {
+  margin-top: 12px;
+  font-size: 1.3rem;
+}
+
+

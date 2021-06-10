@@ -36,6 +36,15 @@ a {
   text-decoration: none;
 }
 
-button:focus {
-  outline: none;
+button {
+  border: none;
+  font: $body-font;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
