@@ -1,10 +1,10 @@
-import { VALID_NAMES } from "./constants";
+import { VALID_NAMES } from './constants';
 
-export const firstName = (s: string, setLowerCase = true) =>
+export const firstName = (s: string, setLowerCase = true): string =>
   setLowerCase ? s.toLowerCase().split(' ')[0] : s.split(' ')[0];
 
-export const toFirstNames = (arr: string[], setLowerCase = true) =>
+export const toFirstNames = (arr: string[], setLowerCase = true): string[] =>
   arr.map(name => firstName(name, setLowerCase));
 
-export const validateNames = (arr: string[]) =>
+export const validateNames = (arr: string[]): string[] =>
   arr.filter(name => VALID_NAMES.includes(name));

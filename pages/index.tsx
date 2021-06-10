@@ -18,7 +18,7 @@ export default function Home({names}: HomeProps): JSX.Element {
         You all will be very missed.
       </p>
       <div id={styles['envelope-container']}>
-        {names?.map(name => <Envelope name={name}/>)}
+        {names?.map(name => <Envelope key={name} name={name}/>)}
       </div>
     </Layout>
   );

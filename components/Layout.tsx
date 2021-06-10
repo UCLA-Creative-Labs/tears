@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export default function Layout(props: LayoutProps): JSX.Element {
   const title = `${props.title ?? 'Senior Deds'} | Creative Labs`;
-  const description = props.description ?? "A website dedicated to our amazing 2021 seniors. You all will be very missed.";
+  const description = props.description ?? 'A website dedicated to our amazing 2021 seniors. You all will be very missed.';
   return (
     <>
       <Head>

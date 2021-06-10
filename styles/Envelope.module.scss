@@ -4,8 +4,8 @@
   width: 200px;
   height: 140px;
   position: relative;
-
   background-image: url('../public/envelope.svg');
+
   @include mixin.background;
 
   &:hover {

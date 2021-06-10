@@ -1,8 +1,8 @@
 #container {
   display: flex;
   flex-direction: column;
-
   margin: auto;
+  padding: 0 32px;
   max-width: 900px;
 }
 
@@ -19,10 +19,9 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-
   margin-top: 30px;
 
   & > div {
-    margin: 10px
+    margin: 10px;
   }
 }
