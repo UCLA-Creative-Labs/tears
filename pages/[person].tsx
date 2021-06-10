@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, Note, toFirstNames, validateNames } from '../utils';
-import styles from '../styles/PersonalPage.module.scss';
 import * as Button from '../components/Button';
+import Layout from '../components/Layout';
+import styles from '../styles/PersonalPage.module.scss';
+import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, Note, toFirstNames, validateNames } from '../utils';
 
 interface PersonalPageProps {
   deds: Note[];
@@ -14,10 +14,10 @@ interface PersonalPageProps {
 const parse = (s: string): JSX.Element[] => {
   const text = s.split('\n');
   return text.reduce((acc, t): JSX.Element[] =>
-   [...acc, (<>{t}</>), (<br/>)], []);
-}
+    [...acc, (<>{t}<br/></>)], []);
+};
 
-const FILLER = `[insert cute description here]`;
+const FILLER = '[insert cute description here]';
 
 export default function PersonalPage({deds, name}: PersonalPageProps): JSX.Element {
 
@@ -37,12 +37,12 @@ export default function PersonalPage({deds, name}: PersonalPageProps): JSX.Eleme
 
     const prev = () => {
       setIdx(i => i - 1 >= 0 ? i - 1 : deds.length - 1);
-    }
+    };
 
     const next = () => {
       setIdx(i => i + 1 < deds.length ? i + 1 : 0);
-    }
-    
+    };
+
     return (
       <>
         <p id={styles.note}>
@@ -57,7 +57,7 @@ export default function PersonalPage({deds, name}: PersonalPageProps): JSX.Eleme
         </footer>
       </>
     );
-  }
+  };
 
   return (
     <Layout id={styles.container}>

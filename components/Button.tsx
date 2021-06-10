@@ -1,8 +1,8 @@
 import React from 'react';
 
 export enum BUTTON_TYPE {
-  LEFT,
-  RIGHT,
+  _LEFT='LEFT',
+  _RIGHT='RIGHT',
 }
 
 export interface BaseButtonProps {
@@ -15,11 +15,11 @@ export interface ButtonProps extends BaseButtonProps {
 }
 
 export function LEFT(props: BaseButtonProps): JSX.Element {
-  return <Button {...props} type={BUTTON_TYPE.LEFT}/>
+  return <Button {...props} type={BUTTON_TYPE._LEFT}/>;
 }
 
 export function RIGHT(props: BaseButtonProps): JSX.Element {
-  return <Button {...props} type={BUTTON_TYPE.RIGHT}/>
+  return <Button {...props} type={BUTTON_TYPE._RIGHT}/>;
 }
 
 function Button(props: ButtonProps): JSX.Element {
@@ -27,9 +27,9 @@ function Button(props: ButtonProps): JSX.Element {
 
   return (
     <button onClick={onClick}>
-      {type == BUTTON_TYPE.LEFT && '< '}
+      {type == BUTTON_TYPE._LEFT && '< '}
       {text}
-      {type == BUTTON_TYPE.RIGHT && ' >'}
+      {type == BUTTON_TYPE._RIGHT && ' >'}
     </button>
   );
 }

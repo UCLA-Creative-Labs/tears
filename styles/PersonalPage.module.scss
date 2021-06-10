@@ -11,7 +11,7 @@
   footer {
     display: flex;
     justify-content: space-between;
-    margin: 48px 0px;
+    margin: 48px 0;
   }
 }
 
@@ -19,7 +19,8 @@
   margin-top: 64px;
 }
 
-#note, #from {
+#note,
+#from {
   text-align: left;
 }
 
@@ -32,5 +33,3 @@
   margin-top: 12px;
   font-size: 1.3rem;
 }
-
-
