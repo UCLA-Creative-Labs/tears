@@ -1,4 +1,5 @@
 @use 'variables.module' as *;
+@use 'mixins.module' as mixin;
 
 * {
   padding: 0;
@@ -39,10 +40,10 @@ a {
 button {
   border: none;
   font: $body-font;
+  position: relative;
 
-  &:focus {
-    outline: none;
-  }
+  @include mixin.underline;
+  @include mixin.press-on-active;
 
   &:hover {
     cursor: pointer;

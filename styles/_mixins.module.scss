@@ -1,5 +1,29 @@
+@use 'variables.module' as *;
+
 @mixin background {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+@mixin underline {
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    right: 100%;
+    border-bottom: 2px solid map-get($colors, 'black');
+    transition: right 0.3s ease-out;
+  }
+
+  &:hover::after {
+    right: 0;
+  }
+}
+
+@mixin press-on-active {
+  &:active {
+    transform: scale(0.96);
+  }
 }
