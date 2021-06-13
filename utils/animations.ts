@@ -27,7 +27,7 @@ export function animateOutUp(targets: AnimeTarget): void {
     opacity: 0,
     easing: 'easeInOutQuart',
     duration: 1000,
-    translateY: ['0px', '-50px'],
+    translateY: ['0px', '-25px'],
   });
 }
 

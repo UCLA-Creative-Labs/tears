@@ -1,17 +1,25 @@
 #container {
   position: relative;
+  display: flex;
+  flex-direction: column;
   max-width: 646px;
+  min-height: calc(100vh - 2 * 32px);
   margin: auto;
-  padding: 48px 32px;
+  padding: 32px 32px;
 
-  nav {
+  header {
     position: absolute;
+  }
+
+  & > div {
+    flex: 1 0 auto;
   }
 
   footer {
     display: flex;
+    flex-shrink: 0;
     justify-content: space-between;
-    margin: 48px 0;
+    margin-bottom: 32px;
   }
 }
 
@@ -25,7 +33,7 @@
 }
 
 #note {
-  margin-top: 24px;
+  margin-top: 28px;
   font-size: 2rem;
 }
 

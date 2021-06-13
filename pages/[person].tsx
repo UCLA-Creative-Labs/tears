@@ -64,20 +64,22 @@ export default function PersonalPage({deds, name, quote}: PersonalPageProps): JS
 
   return (
     <Layout id={styles.container} title={name}>
-      <nav>
+      <header>
         <Link href={'/'}>
           <Button.LEFT uid={'homeButton'} text={'back to home'}/>
         </Link>
-      </nav>
-      <h1 id={styles.name}>{name}</h1>
-      <p id={styles.description}>{quote}</p>
-      <div id={'note-container'}>
-        <p id={styles.note}>
-          {parse(deds ? deds[idx].note : 'i love you')}
-        </p>
-        <p id={styles.from}>
-          -{deds ? deds[idx].from : 'bippen'}
-        </p>
+      </header>
+      <div>
+        <h1 id={styles.name}>{name}</h1>
+        <p id={styles.description}>{quote}</p>
+        <div id={'note-container'}>
+          <p id={styles.note}>
+            {parse(deds ? deds[idx].note : 'i love you')}
+          </p>
+          <p id={styles.from}>
+            -{deds ? deds[idx].from : 'bippen'}
+          </p>
+        </div>
       </div>
       <footer>
         <Button.LEFT uid={'prevButton'} text={'previous letter'} onClick={() => prev()}/>
