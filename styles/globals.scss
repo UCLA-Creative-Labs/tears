@@ -1,4 +1,5 @@
 @use 'variables.module' as *;
+@use 'mixins.module' as mixin;
 
 * {
   padding: 0;
@@ -36,13 +37,26 @@ a {
   text-decoration: none;
 }
 
+.custom-button {
+  position: relative;
+
+  @include mixin.press-on-active;
+
+  svg {
+    position: absolute;
+    display: block;
+    transform: translateY(-25%);
+    width: 100%;
+    height: auto;
+  }
+}
+
 button {
   border: none;
   font: $body-font;
-
-  &:focus {
-    outline: none;
-  }
+  position: relative;
+  // Safari adds grey background-color as default
+  background: none;
 
   &:hover {
     cursor: pointer;

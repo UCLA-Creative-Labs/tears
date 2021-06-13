@@ -4,7 +4,20 @@ import React, { useEffect, useState } from 'react';
 import * as Button from '../components/Button';
 import Layout from '../components/Layout';
 import styles from '../styles/PersonalPage.module.scss';
-import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, getQuoteFromName, Note, toFirstNames, validateNames } from '../utils';
+import {
+  getDatabases,
+  getDedsFromId,
+  getIdFromName,
+  getNameFromId,
+  getQuoteFromName,
+  Note,
+  toFirstNames,
+  validateNames,
+} from '../utils';
+import {
+  animateOutUp,
+  animateUp,
+} from '../utils/animations';
 
 interface PersonalPageProps {
   deds: Note[];
@@ -19,55 +32,59 @@ const parse = (s: string): JSX.Element[] => {
 };
 
 export default function PersonalPage({deds, name, quote}: PersonalPageProps): JSX.Element {
+  const [idx, setIdx] = useState(0);
 
-  const NoteCarousel = (): JSX.Element => {
-    const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const storage = window.sessionStorage;
+    const _idx = storage.getItem('idx');
+    if (_idx) setIdx(+_idx);
+  }, []);
 
-    useEffect(() => {
-      const storage = window.sessionStorage;
-      const _idx = storage.getItem('idx');
-      if (_idx) setIdx(+_idx);
-    }, []);
+  useEffect(() => {
+    const storage = window.sessionStorage;
+    storage.setItem('idx', `${idx}`);
 
-    useEffect(() => {
-      const storage = window.sessionStorage;
-      storage.setItem('idx', `${idx}`);
-    }, [idx]);
+    animateUp('#note-container');
 
-    const prev = () => {
+  }, [idx]);
+
+  const prev = () => {
+    animateOutUp('#note-container');
+    setTimeout(() => {
       setIdx(i => i - 1 >= 0 ? i - 1 : deds.length - 1);
-    };
+    }, 1250);
+  };
 
-    const next = () => {
+  const next = () => {
+    animateOutUp('#note-container');
+    setTimeout(() => {
       setIdx(i => i + 1 < deds.length ? i + 1 : 0);
-    };
-
-    return (
-      <>
-        <p id={styles.note}>
-          {parse(deds ? deds[idx].note : 'i love you')}
-        </p>
-        <p id={styles.from}>
-          -{deds ? deds[idx].from : 'bippen'}
-        </p>
-        <footer>
-          <Button.LEFT text={'previous letter'} onClick={() => prev()}/>
-          <Button.RIGHT text={'next letter'} onClick={() => next()}/>
-        </footer>
-      </>
-    );
+    }, 1250);
   };
 
   return (
-    <Layout id={styles.container}>
-      <nav>
+    <Layout id={styles.container} title={name}>
+      <header>
         <Link href={'/'}>
-          <Button.LEFT text={'back to home'}/>
+          <Button.LEFT uid={'homeButton'} text={'back to home'}/>
         </Link>
-      </nav>
-      <h1 id={styles.name}>{name}</h1>
-      <p id={styles.description}>{quote}</p>
-      <NoteCarousel />
+      </header>
+      <div>
+        <h1 id={styles.name}>{name}</h1>
+        <p id={styles.description}>{quote}</p>
+        <div id={'note-container'}>
+          <p id={styles.note}>
+            {parse(deds ? deds[idx].note : 'i love you')}
+          </p>
+          <p id={styles.from}>
+            -{deds ? deds[idx].from : 'bippen'}
+          </p>
+        </div>
+      </div>
+      <footer>
+        <Button.LEFT uid={'prevButton'} text={'previous letter'} onClick={() => prev()}/>
+        <Button.RIGHT uid={'nextButton'} text={'next letter'} onClick={() => next()}/>
+      </footer>
     </Layout>
   );
 }
@@ -99,5 +116,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       name: person,
       quote,
     },
+    revalidate: 60,
   };
 };

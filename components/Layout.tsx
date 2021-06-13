@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
+// Must specify to /constants because notion requires 'fs'
+import { FAVICON } from '../utils/constants';
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -31,7 +33,7 @@ export default function Layout(props: LayoutProps): JSX.Element {
         <meta property="twitter:image" content="https://assets.creativelabsucla.com/metadata.png" />
 
         <title>{title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${FAVICON}</text></svg>`}></link>
       </Head>
       <main id={props.id}>
         {props.children}

@@ -12,4 +12,7 @@ export const VALID_NAMES = [
 ];
 
 export const QUOTES_DB = 'quotes';
+
 export const FILLER_QUOTE = '[insert cute description here]';
+
+export const FAVICON = '❤️';
