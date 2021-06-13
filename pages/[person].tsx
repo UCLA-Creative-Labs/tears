@@ -4,8 +4,20 @@ import React, { useEffect, useState } from 'react';
 import * as Button from '../components/Button';
 import Layout from '../components/Layout';
 import styles from '../styles/PersonalPage.module.scss';
-import { getDatabases, getDedsFromId, getIdFromName, getNameFromId, getQuoteFromName, Note, toFirstNames, validateNames } from '../utils';
-import { animateOutUp, animateUp } from '../utils/animations';
+import {
+  getDatabases,
+  getDedsFromId,
+  getIdFromName,
+  getNameFromId,
+  getQuoteFromName,
+  Note,
+  toFirstNames,
+  validateNames,
+} from '../utils';
+import {
+  animateOutUp,
+  animateUp,
+} from '../utils/animations';
 
 interface PersonalPageProps {
   deds: Note[];
@@ -51,10 +63,10 @@ export default function PersonalPage({deds, name, quote}: PersonalPageProps): JS
   };
 
   return (
-    <Layout id={styles.container}>
+    <Layout id={styles.container} title={name}>
       <nav>
         <Link href={'/'}>
-          <Button.LEFT text={'back to home'}/>
+          <Button.LEFT uid={'homeButton'} text={'back to home'}/>
         </Link>
       </nav>
       <h1 id={styles.name}>{name}</h1>
@@ -68,8 +80,8 @@ export default function PersonalPage({deds, name, quote}: PersonalPageProps): JS
         </p>
       </div>
       <footer>
-        <Button.LEFT text={'previous letter'} onClick={() => prev()}/>
-        <Button.RIGHT text={'next letter'} onClick={() => next()}/>
+        <Button.LEFT uid={'prevButton'} text={'previous letter'} onClick={() => prev()}/>
+        <Button.RIGHT uid={'nextButton'} text={'next letter'} onClick={() => next()}/>
       </footer>
     </Layout>
   );

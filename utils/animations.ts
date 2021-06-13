@@ -15,8 +15,8 @@ export function animateUp(targets: AnimeTarget, opacity?: number): void {
     targets: _targets,
     opacity: [0, opacity ?? 1],
     easing: 'easeInOutQuart',
-    duration: 1750,
-    translateY: ['50px', '0px'],
+    duration: 1250,
+    translateY: ['25px', '0px'],
   });
 }
 
@@ -28,5 +28,17 @@ export function animateOutUp(targets: AnimeTarget): void {
     easing: 'easeInOutQuart',
     duration: 1000,
     translateY: ['0px', '-50px'],
+  });
+}
+
+export function animateStroke(targets: AnimeTarget, isReverse = false): void {
+  const _targets = extractTargets(targets);
+  anime({
+    targets: _targets,
+    strokeDashoffset: isReverse
+      ? [0, anime.setDashoffset]
+      : [anime.setDashoffset, 0],
+    easing: 'easeInOutQuart',
+    duration: 750,
   });
 }
