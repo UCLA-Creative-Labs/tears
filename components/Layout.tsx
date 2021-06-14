@@ -1,18 +1,26 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useState } from 'react';
 // Must specify to /constants because notion requires 'fs'
 import { FAVICON } from '../utils/constants';
+import RecordPlayer, { RECORD_PLAYER_ACTIONS } from './RecordPlayer';
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[];
   id?: string;
   title?: string;
   description?: string;
+  audioPath?: string;
+  imagePath?: string;
 }
 
 export default function Layout(props: LayoutProps): JSX.Element {
+  const [action, setAction] = useState(RECORD_PLAYER_ACTIONS.INIT);
   const title = `${props.title ?? 'Senior Deds'} | Creative Labs`;
   const description = props.description ?? 'A website dedicated to our amazing 2021 seniors. You all will be very missed.';
+  
+  const audioPath = props.audioPath ?? '/songs/la-la-lost-you.mp3';
+  const imagePath = props.imagePath ?? '/cl.png';
+
   return (
     <>
       <Head>
@@ -37,6 +45,16 @@ export default function Layout(props: LayoutProps): JSX.Element {
       </Head>
       <main id={props.id}>
         {props.children}
+        <div>
+          <RecordPlayer action={action} audioPath={audioPath} imagePath={imagePath}/>
+        </div>
+        <div>
+          <button onClick={() => setAction(RECORD_PLAYER_ACTIONS.PLAY)}>PLAY</button>
+          <br/>
+          <button onClick={() => setAction(RECORD_PLAYER_ACTIONS.PAUSE)}>PAUSE</button>
+          <br/>
+          <button onClick={() => setAction(RECORD_PLAYER_ACTIONS.RESTART)}>RESTART</button>
+        </div>
       </main>
     </>
   );
