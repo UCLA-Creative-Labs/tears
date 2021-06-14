@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import RecordPlayer from '../components/RecordPlayer';
+import SpotifyAuth from '../components/SpotifyAuth';
 
 export default function Record(): JSX.Element {
 
@@ -9,6 +10,7 @@ export default function Record(): JSX.Element {
       <div>
         <RecordPlayer />
       </div>
+      <SpotifyAuth />
     </Layout>
   );
 }
