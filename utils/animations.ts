@@ -50,7 +50,7 @@ export interface AnimeControls {
   restart?: () => void;
 }
 
-export function spin(targets: AnimeTarget, period = 5, autoplay = false, loop = true): AnimeControls {
+export function spin(targets: AnimeTarget, period = 4.5, autoplay = false, loop = true): AnimeControls {
   const _targets = extractTargets(targets);
   const animation = anime({
     targets: _targets,

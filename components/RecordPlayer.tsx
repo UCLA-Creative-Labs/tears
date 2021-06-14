@@ -1,18 +1,60 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { AppContext } from '../pages/_app';
 import styles from '../styles/RecordPlayer.module.scss';
 import { AnimeControls, moveRecordArm, pulseRecordArm, spin } from '../utils/animations';
 
-export default function RecordPlayer(): JSX.Element {
+export enum RECORD_PLAYER_ACTIONS {
+  INIT = 'INIT',
+  PLAY = 'PLAY',
+  PAUSE = 'PAUSE',
+  RESTART = 'RESTART',
+}
+
+export interface RecordPlayerProps {
+  action: RECORD_PLAYER_ACTIONS;
+  song: string;
+}
+
+export default function RecordPlayer({action, song}: RecordPlayerProps): JSX.Element {
+  const {accessToken, playSong} = useContext(AppContext);
   const vinylRef = useRef<AnimeControls | null>(null);
   const armRef = useRef<AnimeControls | null>(null);
   const pulseRef = useRef<AnimeControls | null>(null);
   const isPlaying = useRef(false);
   const isReversed = useRef(false);
+  const [vinylImage, setVinylImage] = useState('/cl.png');
 
   useEffect(() => {
     vinylRef.current = spin(`#${styles.vinyl}`);
     armRef.current = moveRecordArm(`#${styles.arm}`);
   }, []);
+
+  useEffect(() => {
+    window.fetch(`https://api.spotify.com/v1/tracks/${song}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      const {album: {images}} = data;
+      setVinylImage(images[0].url);
+    });
+  }, [accessToken]);
+
+  useEffect(() => {
+    switch (action) {
+      case RECORD_PLAYER_ACTIONS.PLAY:
+        play(); break;
+      case RECORD_PLAYER_ACTIONS.PAUSE:
+        pause(); break;
+      case RECORD_PLAYER_ACTIONS.RESTART:
+        restart(); break;
+    }
+  }, [action]);
 
   const reverseArmIf = (condition: boolean) => {
     if (!condition) return;
@@ -21,7 +63,11 @@ export default function RecordPlayer(): JSX.Element {
   };
 
   const play = () => {
-    if (isPlaying.current) return;
+    if (!accessToken) console.log('Please authenticate first');
+    if (!accessToken || isPlaying.current) return;
+
+    playSong(song);
+
     vinylRef.current.play();
     reverseArmIf(isReversed.current);
     armRef.current.play();
@@ -77,7 +123,7 @@ export default function RecordPlayer(): JSX.Element {
             <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
               <use href="#image0" transform="scale(0.00444444)"/>
             </pattern>
-            <image id="image0" width="225" height="225" href={'/cl.png'} />
+            <image id="image0" width="225" height="225" href={vinylImage} />
           </defs>
         </svg>
 
@@ -94,14 +140,6 @@ export default function RecordPlayer(): JSX.Element {
           <path fillRule="evenodd" clipRule="evenodd" d="M46.4638 902.477C48.4773 903.887 51.2169 903.624 52.9258 901.857L118.444 834.114L155.312 858.23C157.646 859.756 160.777 859.078 162.271 856.723L164.834 852.683C166.187 850.55 165.736 847.742 163.783 846.14L132.02 820.077L143.825 807.871C145.963 805.661 145.618 802.063 143.099 800.299L66.5458 746.696C64.0451 744.945 60.5727 745.824 59.2065 748.554L0.792752 865.287C-0.316511 867.504 0.365786 870.198 2.39628 871.62L46.4638 902.477Z" fill="#535353"/>
           <path d="M52.9258 901.857L55.801 904.638L52.9258 901.857ZM46.4638 902.477L48.7581 899.2L48.7581 899.2L46.4638 902.477ZM118.444 834.114L120.633 830.767L117.867 828.957L115.569 831.334L118.444 834.114ZM155.312 858.23L153.122 861.577L155.312 858.23ZM162.271 856.723L165.649 858.866V858.866L162.271 856.723ZM164.834 852.683L161.456 850.541L164.834 852.683ZM163.783 846.14L161.246 849.232V849.232L163.783 846.14ZM132.02 820.077L129.145 817.296L126.128 820.416L129.483 823.169L132.02 820.077ZM143.825 807.871L140.95 805.09L140.95 805.09L143.825 807.871ZM143.099 800.299L140.805 803.576L140.805 803.576L143.099 800.299ZM66.5458 746.696L68.8401 743.42V743.42L66.5458 746.696ZM59.2065 748.554L62.7837 750.344V750.344L59.2065 748.554ZM0.792752 865.287L-2.78437 863.497H-2.78437L0.792752 865.287ZM2.39628 871.62L4.69058 868.344H4.69058L2.39628 871.62ZM50.0505 899.076C49.7087 899.429 49.1608 899.482 48.7581 899.2L44.1695 905.753C47.7938 908.291 52.7251 907.818 55.801 904.638L50.0505 899.076ZM115.569 831.334L50.0505 899.076L55.801 904.638L121.319 836.895L115.569 831.334ZM157.502 854.882L120.633 830.767L116.254 837.462L153.122 861.577L157.502 854.882ZM158.893 854.581C158.595 855.052 157.968 855.187 157.502 854.882L153.122 861.577C157.323 864.325 162.96 863.105 165.649 858.866L158.893 854.581ZM161.456 850.541L158.893 854.581L165.649 858.866L168.212 854.826L161.456 850.541ZM161.246 849.232C161.637 849.552 161.727 850.114 161.456 850.541L168.212 854.826C170.647 850.986 169.836 845.932 166.321 843.047L161.246 849.232ZM129.483 823.169L161.246 849.232L166.321 843.047L134.558 816.985L129.483 823.169ZM140.95 805.09L129.145 817.296L134.896 822.858L146.701 810.652L140.95 805.09ZM140.805 803.576C141.309 803.929 141.378 804.648 140.95 805.09L146.701 810.652C150.548 806.674 149.927 800.197 145.394 797.023L140.805 803.576ZM64.2515 749.973L140.805 803.576L145.394 797.023L68.8401 743.42L64.2515 749.973ZM62.7837 750.344C63.0569 749.798 63.7514 749.623 64.2515 749.973L68.8401 743.42C64.3388 740.268 58.0885 741.85 55.6294 746.764L62.7837 750.344ZM4.36988 867.077L62.7837 750.344L55.6294 746.764L-2.78437 863.497L4.36988 867.077ZM4.69058 868.344C4.28449 868.059 4.14802 867.52 4.36988 867.077L-2.78437 863.497C-4.78104 867.487 -3.55292 872.338 0.101976 874.897L4.69058 868.344ZM48.7581 899.2L4.69058 868.344L0.101971 874.897L44.1695 905.753L48.7581 899.2Z" fill="#181818" mask="url(#path-7-inside-1)"/>
         </svg>
-      </div>
-      <div style={{marginTop: '200px'}}>
-
-        <button onClick={play}>PLAY</button>
-        <br/>
-        <button onClick={pause}>PAUSE</button>
-        <br/>
-        <button onClick={restart}>RESTART</button>
       </div>
     </>
   );

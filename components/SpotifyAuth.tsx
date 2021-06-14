@@ -2,7 +2,7 @@ import querystring from 'querystring';
 import React from 'react';
 import { generateChallenge, generateRandomString } from '../utils/spotify/crypto';
 
-const SPOTIFY_SCOPE = 'user-read-private user-read-email';
+const SPOTIFY_SCOPE = 'user-read-playback-state user-modify-playback-state user-read-currently-playing streaming user-read-private user-read-email';
 const CLIENT_ID = 'a26533af9e8f41d3b352602e9099900f';
 
 const getUrlPath = (): string => {
