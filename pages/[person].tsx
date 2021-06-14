@@ -11,6 +11,9 @@ import {
   getNameFromId,
   getQuoteFromName,
   Note,
+  SENIOR,
+  senior2song,
+  Song,
   toFirstNames,
   validateNames,
 } from '../utils';
@@ -23,8 +26,7 @@ interface PersonalPageProps {
   deds: Note[];
   name: string;
   quote: string;
-  audioPath: string;
-  imagePath: string;
+  song: Song;
 }
 
 const parse = (s: string): JSX.Element[] => {
@@ -34,7 +36,8 @@ const parse = (s: string): JSX.Element[] => {
 };
 
 export default function PersonalPage(props: PersonalPageProps): JSX.Element {
-  const {deds, name, quote, audioPath, imagePath} = props;
+  const {deds, name, quote, song} = props;
+  console.log(song);
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -66,7 +69,7 @@ export default function PersonalPage(props: PersonalPageProps): JSX.Element {
   };
 
   return (
-    <Layout id={styles.container} title={name} audioPath={audioPath} imagePath={imagePath}>
+    <Layout id={styles.container} title={name} song={song}>
       <header>
         <Link href={'/'}>
           <Button.LEFT uid={'homeButton'} text={'back to home'}/>
@@ -75,7 +78,7 @@ export default function PersonalPage(props: PersonalPageProps): JSX.Element {
       <div>
         <h1 id={styles.name}>{name}</h1>
         <p id={styles.description}>{quote}</p>
-        <div id={'note-container'}>
+        <div id={styles['note-container']}>
           <p id={styles.note}>
             {parse(deds ? deds[idx].note : 'i love you')}
           </p>
@@ -117,8 +120,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       deds: filteredDeds,
       name: person,
-      audioPath: `/songs/${person}/music.mp3`,
-      imagePath: `/songs/${person}/vinyl-image.png`,
+      song: senior2song(person as SENIOR),
       quote,
     },
     revalidate: 60,
