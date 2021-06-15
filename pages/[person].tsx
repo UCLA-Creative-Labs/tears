@@ -5,11 +5,9 @@ import * as Button from '../components/Button';
 import Layout from '../components/Layout';
 import styles from '../styles/PersonalPage.module.scss';
 import {
-  getDatabases,
-  getDedsFromId,
-  getIdFromName,
-  getNameFromId,
-  getQuoteFromName,
+  animateOutUp,
+  animateUp,
+  capitalize,
   Note,
   SENIOR,
   senior2song,
@@ -18,9 +16,12 @@ import {
   validateNames,
 } from '../utils';
 import {
-  animateOutUp,
-  animateUp,
-} from '../utils/animations';
+  getDatabases,
+  getDedsFromId,
+  getIdFromName,
+  getNameFromId,
+  getQuoteFromName,
+} from '../utils/node';
 
 interface PersonalPageProps {
   deds: Note[];
@@ -38,6 +39,7 @@ const parse = (s: string): JSX.Element[] => {
 export default function PersonalPage(props: PersonalPageProps): JSX.Element {
   const {deds, name, quote, song} = props;
   const [idx, setIdx] = useState(0);
+  const noteContainer = `#${styles['note-container']}`;
 
   useEffect(() => {
     const storage = window.sessionStorage;
@@ -48,27 +50,25 @@ export default function PersonalPage(props: PersonalPageProps): JSX.Element {
   useEffect(() => {
     const storage = window.sessionStorage;
     storage.setItem('idx', `${idx}`);
-
-    animateUp('#note-container');
-
+    animateUp(noteContainer);
   }, [idx]);
 
   const prev = () => {
-    animateOutUp('#note-container');
+    animateOutUp(noteContainer);
     setTimeout(() => {
       setIdx(i => i - 1 >= 0 ? i - 1 : deds.length - 1);
     }, 1250);
   };
 
   const next = () => {
-    animateOutUp('#note-container');
+    animateOutUp(noteContainer);
     setTimeout(() => {
       setIdx(i => i + 1 < deds.length ? i + 1 : 0);
     }, 1250);
   };
 
   return (
-    <Layout id={styles.container} title={name} song={song}>
+    <Layout id={styles.container} title={capitalize(name)} song={song}>
       <header>
         <Link href={'/'}>
           <Button.LEFT uid={'homeButton'} text={'back to home'}/>

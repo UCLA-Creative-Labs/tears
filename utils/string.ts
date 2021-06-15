@@ -8,3 +8,6 @@ export const toFirstNames = (arr: string[], setLowerCase = true): string[] =>
 
 export const validateNames = (arr: string[]): string[] =>
   arr.filter(name => VALID_NAMES.includes(name as SENIOR));
+
+export const capitalize = (str: string): string =>
+  str.charAt(0).toUpperCase() + str.slice(1);

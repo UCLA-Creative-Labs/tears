@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   max-width: 646px;
-  // min-height: calc(100vh - 2 * 32px);
   margin: auto;
   padding: 32px 32px;
 
@@ -18,7 +17,6 @@
   footer {
     margin-top: 36px;
     display: flex;
-    flex-shrink: 0;
     justify-content: space-between;
   }
 }

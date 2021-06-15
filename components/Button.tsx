@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { animateStroke } from '../utils/animations';
+import { animateStroke } from '../utils';
 
 export enum BUTTON_TYPE {
   _LEFT='LEFT',

@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { Song } from '../utils';
-// Must specify to /constants because notion requires 'fs'
-import { FAVICON } from '../utils/constants';
+import { FAVICON, Song } from '../utils';
 import RecordPlayer from './RecordPlayer';
 
 interface LayoutProps {

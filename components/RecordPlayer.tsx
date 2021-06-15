@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../styles/RecordPlayer.module.scss';
-import { senior2song } from '../utils/constants';
-import { AnimeControls, moveRecordArm, pulseRecordArm, spin } from '../utils/animations';
-import { Song } from '../utils/types';
+import { AnimeControls, moveRecordArm, pulseRecordArm, spin, senior2song, Song } from '../utils';
 
 export enum RECORD_PLAYER_STATE {
   INIT = 'INIT',
@@ -99,7 +97,7 @@ export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
         </div>
         : <div id={styles.blur} onClick={toggleState}/>
       }
-      <div id={styles.wrapper} className={state === RECORD_PLAYER_STATE.POPUP && styles.popup}>
+      <div id={styles.wrapper} className={state === RECORD_PLAYER_STATE.POPUP ? styles.popup : ''}>
         <div id={styles.container} onClick={toggleState}>
           <svg id={styles.vinyl} width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <mask id="path-1-inside-1" fill="white">

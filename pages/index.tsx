@@ -3,7 +3,8 @@ import React from 'react';
 import Envelope from '../components/Envelope';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.scss';
-import { getDatabases, getNameFromId, senior2song, Song, toFirstNames, validateNames } from '../utils';
+import { senior2song, Song, toFirstNames, validateNames } from '../utils';
+import { getDatabases, getNameFromId } from '../utils/node';
 
 interface HomeProps {
   names: string[];
