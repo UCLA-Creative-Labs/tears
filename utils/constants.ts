@@ -1,4 +1,4 @@
-import { Song } from "./types";
+import { Song } from './types';
 
 export enum SENIOR {
   ARJUN='arjun',
@@ -11,7 +11,7 @@ export enum SENIOR {
   JUSTINE='justine',
   KALI='kali',
   VIVI='vivi',
-};
+}
 
 export const VALID_NAMES = Object.values(SENIOR);
 
@@ -24,16 +24,16 @@ export const FAVICON = '❤️';
 export const senior2song = (person?: SENIOR): Song => {
   const audioPath = person
     ? `/songs/${person}/music.mp3`
-    : `/songs/la-la-lost-you.mp3`;
+    : '/songs/la-la-lost-you.mp3';
   const imagePath = person
     ? `/songs/${person}/vinyl-image.png`
-    : `/cl.png`;
+    : '/cl.png';
 
-  let title = 'La La Lost You (Acoustic)';
+  let title = 'La La Lost You';
   let artist = 'NIKI';
   switch (person) {
     case SENIOR.ARJUN:
-      title = 'Afterglow (Acoustic)';
+      title = 'Afterglow';
       artist = 'Ed Sheeran';
       break;
     case SENIOR.NORMAN:
@@ -79,5 +79,5 @@ export const senior2song = (person?: SENIOR): Song => {
     artist,
     audioPath,
     imagePath,
-  }
-}
+  };
+};

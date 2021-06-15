@@ -37,7 +37,6 @@ const parse = (s: string): JSX.Element[] => {
 
 export default function PersonalPage(props: PersonalPageProps): JSX.Element {
   const {deds, name, quote, song} = props;
-  console.log(song);
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
