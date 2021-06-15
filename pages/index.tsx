@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-import React from 'react';
+import React, { useState } from 'react';
 import Envelope from '../components/Envelope';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.scss';
@@ -12,6 +12,16 @@ interface HomeProps {
 }
 
 export default function Home({names, song}: HomeProps): JSX.Element {
+  const [modal, setModal] = useState<string| null>(null);
+
+  const popup = (ref: HTMLDivElement) => {
+    setModal(ref.style.backgroundImage);
+  } 
+
+  const close = () => {
+    setModal(null);
+  }
+
   return (
     <Layout id={styles.container} song={song}>
       <h1 id={styles.heading}>senior deds pee pee poo poo</h1>
@@ -20,8 +30,13 @@ export default function Home({names, song}: HomeProps): JSX.Element {
         You all will be very missed.
       </p>
       <div id={styles['envelope-container']}>
-        {names?.map(name => <Envelope key={name} name={name}/>)}
+        {names?.map(name => <Envelope popup={popup} key={name} name={name}/>)}
       </div>
+      {modal && 
+        <>
+          <div id={styles.modal} style={{backgroundImage: modal}}/>
+          <div id={styles.blur} style={{WebkitBackdropFilter: 'blur(2px)'}} onClick={close}/>
+        </>}
     </Layout>
   );
 }

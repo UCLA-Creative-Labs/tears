@@ -2,6 +2,7 @@
   position: fixed;
   right: 32px;
   bottom: 32px;
+  z-index: 99;
 }
 
 #metadata {
@@ -144,7 +145,11 @@
   }
 
   .popup {
-    &#wrapper {
+    &#sticky-container {
+      width: 340px;
+      height: 360px;
+    }
+    #wrapper {
       width: 340px;
       height: 360px;
     }

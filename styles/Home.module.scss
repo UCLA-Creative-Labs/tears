@@ -1,3 +1,5 @@
+@use 'mixins.module' as mixin;
+
 #container {
   display: flex;
   flex-direction: column;
@@ -24,5 +26,38 @@
 
   & > div {
     margin: 10px;
+  }
+}
+
+#modal {
+  z-index: 101;
+  width: 400px;
+  height: 300px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @include mixin.background;
+}
+
+#blur {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.2);
+
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+@media screen and (max-width: 600px) {
+  #modal {
+    width: 320px;
+    height: 280px;
   }
 }

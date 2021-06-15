@@ -10,9 +10,8 @@ We will miss you all 😢
 
 ## Getting Started
 
-We used `Next.js`, `Typescript`, and `Sass`.
-
-We prefer [`yarn`](https://classic.yarnpkg.com/en/docs/install#mac-stable) as 
+This project is built with `Next.js`, `Typescript`, and `Sass`. We prefer
+[`yarn`](https://classic.yarnpkg.com/en/docs/install#mac-stable) as 
 our package manager.
 
 The basic commands to get this repository and start are:

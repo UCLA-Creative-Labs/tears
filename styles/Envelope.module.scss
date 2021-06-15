@@ -1,19 +1,49 @@
 @use 'mixins.module' as mixin;
 
-.envelope {
+.wrapper {
   width: 200px;
   height: 140px;
   position: relative;
-  background-image: url('../public/envelope.svg');
-
-  @include mixin.background;
-  @include mixin.press-on-active;
 
   &:hover {
     cursor: pointer;
+
+    .postcard {
+      transform: rotate(6deg);
+    }
   }
 }
 
+.envelope {
+  width: 200px;
+  height: 140px;
+  position: absolute;
+  z-index: 1;
+
+  @include mixin.background;
+  @include mixin.press-on-active;
+}
+
 .name {
-  transform: translateY(150%);
+  font-weight: 400;
+  font-size: 1.2rem;
+  z-index: 1;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.postcard {
+  z-index: 0;
+  object-fit: contain;
+  width: 200px;
+  height: 140px;
+  position: absolute;
+
+  transform-origin: bottom right;
+  transition: transform .3s;
+  
+  @include mixin.background;
+  @include mixin.press-on-active;
 }
