@@ -122,6 +122,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       song: senior2song(person as SENIOR),
       quote,
     },
-    revalidate: 60,
   };
 };

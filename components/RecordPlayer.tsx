@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../styles/RecordPlayer.module.scss';
+import { senior2song } from '../utils/constants';
 import { AnimeControls, moveRecordArm, pulseRecordArm, spin } from '../utils/animations';
 import { Song } from '../utils/types';
 
@@ -13,7 +14,7 @@ export interface RecordPlayerProps {
 }
 
 export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
-  const {audioPath, imagePath, title, artist} = song;
+  const {audioPath, imagePath, title, artist} = song ?? senior2song();
   const audio = useRef(null);
   const vinylRef = useRef<AnimeControls | null>(null);
   const armRef = useRef<AnimeControls | null>(null);
