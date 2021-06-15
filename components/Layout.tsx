@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { FAVICON, Song } from '../utils';
+import { capitalize, FAVICON, Song } from '../utils';
 import RecordPlayer from './RecordPlayer';
 
 interface LayoutProps {
@@ -12,7 +12,7 @@ interface LayoutProps {
 }
 
 export default function Layout(props: LayoutProps): JSX.Element {
-  const title = `${props.title ?? 'Senior Deds'} | Creative Labs`;
+  const title = capitalize(`${props.title ?? 'Senior Deds'} | Creative Labs`);
   const description = props.description ?? 'A website dedicated to our amazing 2021 seniors. You all will be very missed.';
   return (
     <>

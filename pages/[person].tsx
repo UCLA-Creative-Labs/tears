@@ -7,7 +7,6 @@ import styles from '../styles/PersonalPage.module.scss';
 import {
   animateOutUp,
   animateUp,
-  capitalize,
   Note,
   SENIOR,
   senior2song,
@@ -68,7 +67,7 @@ export default function PersonalPage(props: PersonalPageProps): JSX.Element {
   };
 
   return (
-    <Layout id={styles.container} title={capitalize(name)} song={song}>
+    <Layout id={styles.container} title={name} song={song}>
       <header>
         <Link href={'/'}>
           <Button.LEFT uid={'homeButton'} text={'back to home'}/>
