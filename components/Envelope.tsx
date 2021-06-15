@@ -10,9 +10,7 @@ interface EnvelopeProps {
 export default function Envelope({name}: EnvelopeProps): JSX.Element {
   return (
     <Link href={`/${name}`}>
-      <div className={styles.envelope}>
-        <h3 className={styles.name}>{name}</h3>
-      </div>
+      <div className={styles.envelope} style={{backgroundImage: `url('/envelope/${name}.svg')`}} />
     </Link>
   );
 }
