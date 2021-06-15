@@ -23,7 +23,9 @@
   width: 100vw;
   height: 100vh;
   background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(2px);
+
+ -webkit-backdrop-filter: blur(2px);
+ backdrop-filter: blur(2px);
 }
 
 #wrapper {
@@ -58,7 +60,16 @@
 }
 
 .popup {
-  &#wrapper {
+  &#sticky-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 420px;
+    height: 430px;
+    transform: translate(-50%, -50%);
+  }
+
+  #wrapper {
     width: 420px;
     height: 430px;
     position: fixed;
