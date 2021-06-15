@@ -125,3 +125,21 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 600px) {
+  #sticky-container {
+    right: 16px;
+    bottom: 32px;
+  }
+
+  .popup {
+    &#wrapper {
+      width: 340px;
+      height: 360px;
+    }
+  
+    #container {
+      height: 160px;
+    }
+  }
+}

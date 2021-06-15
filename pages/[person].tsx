@@ -81,7 +81,7 @@ export default function PersonalPage(props: PersonalPageProps): JSX.Element {
             {parse(deds ? deds[idx].note : 'i love you')}
           </p>
           <p id={styles.from}>
-            -{deds ? deds[idx].from : 'bippen'}
+            - {deds ? deds[idx].from : 'bippen'}
           </p>
         </div>
       </div>
