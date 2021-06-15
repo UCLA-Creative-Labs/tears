@@ -1,13 +1,16 @@
 import Head from 'next/head';
 import React from 'react';
+import { Song } from '../utils';
 // Must specify to /constants because notion requires 'fs'
 import { FAVICON } from '../utils/constants';
+import RecordPlayer from './RecordPlayer';
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[];
   id?: string;
   title?: string;
   description?: string;
+  song: Song;
 }
 
 export default function Layout(props: LayoutProps): JSX.Element {
@@ -37,6 +40,7 @@ export default function Layout(props: LayoutProps): JSX.Element {
       </Head>
       <main id={props.id}>
         {props.children}
+        <RecordPlayer song={props.song}/>
       </main>
     </>
   );

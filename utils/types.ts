@@ -3,4 +3,11 @@ export interface Note {
   from: string;
 }
 
+export interface Song {
+  title: string;
+  artist: string;
+  audioPath: string;
+  imagePath: string;
+}
+
 export type AnimeTarget = string | DOMTokenList;

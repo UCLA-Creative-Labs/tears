@@ -42,3 +42,68 @@ export function animateStroke(targets: AnimeTarget, isReverse = false): void {
     duration: 750,
   });
 }
+
+export interface AnimeControls {
+  play: () => void;
+  pause: () => void;
+  reverse?: () => void;
+  restart?: () => void;
+}
+
+export function spin(targets: AnimeTarget, period = 4.5, autoplay = false, loop = true): AnimeControls {
+  const _targets = extractTargets(targets);
+  const animation = anime({
+    targets: _targets,
+    rotate: [0, 360],
+    easing: 'linear',
+    loop,
+    autoplay,
+    duration: period * 1000,
+  });
+
+  return {
+    play: animation.play,
+    pause: animation.pause,
+    restart: animation.restart,
+  };
+}
+
+export function moveRecordArm(targets: AnimeTarget): AnimeControls {
+  const _targets = extractTargets(targets);
+  const animation = anime.timeline({
+    targets: _targets,
+    autoplay: false,
+  });
+
+  animation.add({
+    targets: _targets,
+    rotate: 20,
+    easing: 'linear',
+    duration: 500,
+  });
+
+  return {
+    play: animation.play,
+    pause: animation.pause,
+    reverse: animation.reverse,
+    restart: animation.restart,
+  };
+}
+
+export function pulseRecordArm(targets: AnimeTarget): AnimeControls {
+  const _targets = extractTargets(targets);
+  const animation = anime({
+    targets: _targets,
+    rotate: [20, 30],
+    easing: 'linear',
+    loop: true,
+    autoplay: false,
+    duration: 18000,
+    direction: 'alternate',
+  });
+
+  return {
+    play: animation.play,
+    pause: animation.pause,
+  };
+}

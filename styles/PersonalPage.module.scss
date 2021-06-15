@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   max-width: 646px;
-  min-height: calc(100vh - 2 * 32px);
+  // min-height: calc(100vh - 2 * 32px);
   margin: auto;
   padding: 32px 32px;
 
@@ -16,24 +16,25 @@
   }
 
   footer {
+    margin-top: 36px;
     display: flex;
     flex-shrink: 0;
     justify-content: space-between;
-    margin-bottom: 32px;
   }
 }
 
 #name {
-  margin-top: 48px;
+  margin-top: 16px;
 }
 
-#note,
-#from {
+#note-container {
+  margin-top: 28px;
+  padding: 24px 32px;
   text-align: left;
+  background-color: white;
 }
 
 #note {
-  margin-top: 28px;
   font-size: 2rem;
 }
 

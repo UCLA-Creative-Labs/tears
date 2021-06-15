@@ -3,15 +3,16 @@ import React from 'react';
 import Envelope from '../components/Envelope';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.scss';
-import { getDatabases, getNameFromId, toFirstNames, validateNames } from '../utils';
+import { getDatabases, getNameFromId, senior2song, Song, toFirstNames, validateNames } from '../utils';
 
 interface HomeProps {
   names: string[];
+  song: Song;
 }
 
-export default function Home({names}: HomeProps): JSX.Element {
+export default function Home({names, song}: HomeProps): JSX.Element {
   return (
-    <Layout id={styles.container}>
+    <Layout id={styles.container} song={song}>
       <h1 id={styles.heading}>senior deds pee pee poo poo</h1>
       <p id={styles['sappy-text']}>
         A website dedicated to our amazing 2021 seniors.
@@ -32,6 +33,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       names: validNames,
+      song: senior2song(),
     },
   };
 };
