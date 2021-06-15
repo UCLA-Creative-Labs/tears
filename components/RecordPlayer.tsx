@@ -17,8 +17,8 @@ export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
   const vinylRef = useRef<AnimeControls | null>(null);
   const armRef = useRef<AnimeControls | null>(null);
   const pulseRef = useRef<AnimeControls | null>(null);
-  const isPlaying = useRef(false);
   const isReversed = useRef(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [state, setState] = useState(RECORD_PLAYER_STATE.INIT);
   const [volume, setVolume] = useState(50);
 
@@ -48,17 +48,16 @@ export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
   };
 
   const play = () => {
-    if (isPlaying.current) return;
+    if (isPlaying) return;
     reverseArmIf(isReversed.current);
     armRef.current.play();
-    isPlaying.current = true;
 
     setTimeout(() => {
-      if (!isPlaying.current) return;
       pulseRef.current = pulseRecordArm(`#${styles.arm}`);
       pulseRef.current.play();
       vinylRef.current.play();
       audio.current.play();
+      setIsPlaying(true);
     }, 500);
   };
 
@@ -67,18 +66,16 @@ export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
     pulseRef.current?.pause();
     pulseRef.current = null;
 
-    if (isPlaying.current) {
+    if (isPlaying) {
       audio.current.pause();
       reverseArmIf(!isReversed.current);
       armRef.current.play();
-      isPlaying.current = false;
+      setIsPlaying(false);
     }
   };
 
   const togglePlay = () => {
-    isPlaying.current
-      ? pause()
-      : play();
+    isPlaying ? pause() : play();
   };
 
   const toggleState = () => {
@@ -89,7 +86,7 @@ export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
   };
 
   return (
-    <>
+    <div id={styles['sticky-container']}>
       {state === RECORD_PLAYER_STATE.INIT
         ? <div id={styles.metadata}>
           <p>now playing: {title}</p>
@@ -142,17 +139,20 @@ export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
         </div>
         {state === RECORD_PLAYER_STATE.POPUP &&
         <div id={styles.controls}>
-          <p>{title} by {artist}
+          <div>
+            <p>{title} by {artist}</p>
             <button id={styles.play} onClick={togglePlay}>
-              <img src={'/play.svg'} alt={'Toggle between play and pause'}/>
+              {isPlaying
+                ? <img src={'/pause.svg'} alt={'icon to pause the music'}/>
+                : <img src={'/play.svg'} alt={'icon to play the music'}/>}
             </button>
-          </p>
+          </div>
           <div>
             <img src={'/volume.svg'} alt={'A volume icon'}/>
             <input min={0} max={100} value={volume} type={'range'} onChange={(e) => setVolume(+e.target.value)}id={styles.volume}/>
           </div>
         </div>}
       </div>
-    </>
+    </div>
   );
 }

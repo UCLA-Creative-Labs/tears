@@ -3,15 +3,12 @@
   display: flex;
   flex-direction: column;
   max-width: 646px;
+  min-height: calc(100vh - 64px);
   margin: auto;
   padding: 32px 32px;
 
   header {
     position: absolute;
-  }
-
-  & > div {
-    flex: 1 0 auto;
   }
 
   footer {
