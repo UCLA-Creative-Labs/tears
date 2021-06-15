@@ -41,20 +41,20 @@ export const senior2song = (person?: SENIOR): Song => {
       artist = 'Axel F';
       break;
     case SENIOR.JASON:
-      title = 'Afterglow';
-      artist = 'Ed Sheeran';
+      title = 'Dynamite';
+      artist = 'BTS';
       break;
     case SENIOR.JOSEPH:
       title = 'Norton\'s Room';
       artist = 'jandro_gaming';
       break;
     case SENIOR.EMMY:
-      title = 'Afterglow';
-      artist = 'Ed Sheeran';
+      title = 'Pompeii';
+      artist = 'Bastille';
       break;
     case SENIOR.DON:
-      title = 'Afterglow';
-      artist = 'Ed Sheeran';
+      title = 'Ah Yeah!!';
+      artist = 'Haiykuu!!';
       break;
     case SENIOR.ANGELA:
       title = 'Afterglow';
