@@ -13,6 +13,20 @@ export enum SENIOR {
   VIVI='vivi',
 }
 
+export const NON_EXISTING_POSTCARDS = [
+  SENIOR.DON,
+  SENIOR.ANGELA,
+  SENIOR.JUSTINE,
+  SENIOR.KALI,
+  SENIOR.VIVI,
+];
+
+const NON_EXISTING_SONGS = [
+  SENIOR.ANGELA,
+  SENIOR.KALI,
+  SENIOR.VIVI,
+];
+
 export const VALID_NAMES = Object.values(SENIOR);
 
 export const QUOTES_DB = 'quotes';
@@ -22,10 +36,10 @@ export const FILLER_QUOTE = '[insert cute description here]';
 export const FAVICON = '❤️';
 
 export const senior2song = (person?: SENIOR): Song => {
-  const audioPath = person
+  const audioPath = person && !NON_EXISTING_SONGS.find(p => person as SENIOR)
     ? `/songs/${person}/music.mp3`
     : '/songs/la-la-lost-you.mp3';
-  const imagePath = person
+  const imagePath = person && !NON_EXISTING_SONGS.find(p => person as SENIOR)
     ? `/songs/${person}/vinyl-image.png`
     : '/cl.png';
 
@@ -56,21 +70,21 @@ export const senior2song = (person?: SENIOR): Song => {
       title = 'Ah Yeah!!';
       artist = 'Haiykuu!!';
       break;
-    case SENIOR.ANGELA:
-      title = 'Afterglow';
-      artist = 'Ed Sheeran';
-      break;
     case SENIOR.JUSTINE:
-      title = 'Afterglow';
-      artist = 'Ed Sheeran';
+      title = 'Heaven';
+      artist = 'Emilee';
+      break;
+    case SENIOR.ANGELA:
+      title = 'La La Lost You';
+      artist = 'NIKI';
       break;
     case SENIOR.KALI:
-      title = 'Afterglow';
-      artist = 'Ed Sheeran';
+      title = 'La La Lost You';
+      artist = 'NIKI';
       break;
     case SENIOR.VIVI:
-      title = 'Afterglow';
-      artist = 'Ed Sheeran';
+      title = 'La La Lost You';
+      artist = 'NIKI';
       break;
   }
 
