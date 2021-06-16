@@ -36,10 +36,10 @@ export const FILLER_QUOTE = '[insert cute description here]';
 export const FAVICON = '❤️';
 
 export const senior2song = (person?: SENIOR): Song => {
-  const audioPath = person && !NON_EXISTING_SONGS.find(p => person as SENIOR)
+  const audioPath = person && !NON_EXISTING_SONGS.find(p => p === person as SENIOR)
     ? `/songs/${person}/music.mp3`
     : '/songs/la-la-lost-you.mp3';
-  const imagePath = person && !NON_EXISTING_SONGS.find(p => person as SENIOR)
+  const imagePath = person && !NON_EXISTING_SONGS.find(p => p === person as SENIOR)
     ? `/songs/${person}/vinyl-image.png`
     : '/cl.png';
 
