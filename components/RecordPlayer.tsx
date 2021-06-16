@@ -30,6 +30,7 @@ export default function RecordPlayer({song}: RecordPlayerProps): JSX.Element {
     vinylRef.current = spin(`#${styles.vinyl}`);
     armRef.current = moveRecordArm(`#${styles.arm}`);
     audio.current = new Audio(audioPath);
+    audio.current.loop = true;
     adjustVolume();
 
     return () => {
